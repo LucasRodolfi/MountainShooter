@@ -8,7 +8,7 @@ from pygame import Surface, Rect
 from pygame.font import Font
 
 from code import entityMediator
-from code.Const import COLOR_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY
+from code.Const import COLOR_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, COLOR_GREEN, COLOR_CYAN
 from code.enemy import Enemy
 from code.entity import Entity
 from code.entityFactory import EntityFactory
@@ -44,6 +44,10 @@ class Level:
                     shoot = ent.shoot()
                     if shoot is not None:
                         self.entity_list.append(shoot)
+                if ent.name == 'Player1':
+                    self.level_text(14, f'Player 1 Health = {ent.health} | Score: {ent.score}', COLOR_GREEN, (10, 20))
+                if ent.name == 'Player2':
+                    self.level_text(14, f'Player 2 Health = {ent.health} | Score: {ent.score}', COLOR_CYAN, (10, 40))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
