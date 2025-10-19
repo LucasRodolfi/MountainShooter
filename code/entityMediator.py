@@ -1,4 +1,3 @@
-from code import entity
 from code.Const import WIN_WIDTH
 from code.enemy import Enemy
 from code.enemyShot import EnemyShot
@@ -8,6 +7,7 @@ from code.playerShot import PlayerShot
 
 
 class EntityMediator:
+
     @staticmethod
     def __verify_collision_window(ent: Entity):
         if isinstance(ent, Enemy):
@@ -32,7 +32,7 @@ class EntityMediator:
         elif isinstance(ent1, EnemyShot) and isinstance(ent2, Player):
             valid_interaction = True
 
-        if valid_interaction:  # == True:
+        if valid_interaction:  # if valid_interaction == True:
             if (ent1.rect.right >= ent2.rect.left and
                     ent1.rect.left <= ent2.rect.right and
                     ent1.rect.bottom >= ent2.rect.top and
@@ -48,24 +48,24 @@ class EntityMediator:
             for ent in entity_list:
                 if ent.name == 'Player1':
                     ent.score += enemy.score
-        elif enemy.last_dmg == 'Player1Shot':
+        elif enemy.last_dmg == 'Player2Shot':
             for ent in entity_list:
-                if ent.name == 'Player1':
+                if ent.name == 'Player2':
                     ent.score += enemy.score
 
     @staticmethod
-    def verify_collision(entity_listy: list[Entity]):
-        for i in range(len(entity_listy)):
-            entity1 = entity_listy[i]
+    def verify_collision(entity_list: list[Entity]):
+        for i in range(len(entity_list)):
+            entity1 = entity_list[i]
             EntityMediator.__verify_collision_window(entity1)
-            for j in range(i + 1, len(entity_listy)):
-                entity2 = entity_listy[j]
+            for j in range(i + 1, len(entity_list)):
+                entity2 = entity_list[j]
                 EntityMediator.__verify_collision_entity(entity1, entity2)
 
     @staticmethod
-    def verify_health(entity_listy: list[Entity]):
-        for ent in entity_listy:
+    def verify_health(entity_list: list[Entity]):
+        for ent in entity_list:
             if ent.health <= 0:
                 if isinstance(ent, Enemy):
-                    EntityMediator.__give_score(ent, entity_listy)
-                entity_listy.remove(ent)
+                    EntityMediator.__give_score(ent, entity_list)
+                entity_list.remove(ent)
